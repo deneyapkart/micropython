@@ -161,7 +161,7 @@ extern struct _spi_bdev_t spi_bdev;
 #define MICROPY_HW_UART7_RTS        (pyb_pin_BT_RTS)
 #define MICROPY_HW_UART7_CTS        (pyb_pin_BT_CTS)
 
-// I2C busses
+// I2C buses
 #define MICROPY_HW_I2C1_SCL         (pin_B6)
 #define MICROPY_HW_I2C1_SDA         (pin_B7)
 
@@ -205,6 +205,11 @@ extern struct _spi_bdev_t spi_bdev;
 #define MICROPY_HW_SDCARD_D2        (pin_B3)
 #define MICROPY_HW_SDCARD_D3        (pin_B4)
 #define MICROPY_HW_SDCARD_MOUNT_AT_BOOT (0)
+
+// FDCAN bus
+#define MICROPY_HW_CAN1_NAME        "FDCAN1"
+#define MICROPY_HW_CAN1_TX          (pin_H13)
+#define MICROPY_HW_CAN1_RX          (pin_B8)
 
 // USB config
 #define MICROPY_HW_USB_HS           (1)

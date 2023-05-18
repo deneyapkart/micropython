@@ -28,8 +28,8 @@
 
 // Current version of MicroPython
 #define MICROPY_VERSION_MAJOR 1
-#define MICROPY_VERSION_MINOR 19
-#define MICROPY_VERSION_MICRO 1
+#define MICROPY_VERSION_MINOR 20
+#define MICROPY_VERSION_MICRO 0
 
 // Combined version as a 32-bit number for convenience
 #define MICROPY_VERSION ( \
@@ -617,8 +617,9 @@
 #endif
 
 // Hook to run code during time consuming garbage collector operations
+// *i* is the loop index variable (e.g. can be used to run every x loops)
 #ifndef MICROPY_GC_HOOK_LOOP
-#define MICROPY_GC_HOOK_LOOP
+#define MICROPY_GC_HOOK_LOOP(i)
 #endif
 
 // Whether to provide m_tracked_calloc, m_tracked_free functions
@@ -1468,10 +1469,19 @@ typedef double mp_float_t;
 #define MICROPY_PY_USELECT_SELECT (1)
 #endif
 
-// Whether to provide "utime" module functions implementation
-// in terms of mp_hal_* functions.
-#ifndef MICROPY_PY_UTIME_MP_HAL
-#define MICROPY_PY_UTIME_MP_HAL (0)
+// Whether to provide the "utime" module
+#ifndef MICROPY_PY_UTIME
+#define MICROPY_PY_UTIME (MICROPY_CONFIG_ROM_LEVEL_AT_LEAST_BASIC_FEATURES)
+#endif
+
+// Whether to provide utime.gmtime/localtime/mktime functions
+#ifndef MICROPY_PY_UTIME_GMTIME_LOCALTIME_MKTIME
+#define MICROPY_PY_UTIME_GMTIME_LOCALTIME_MKTIME (0)
+#endif
+
+// Whether to provide utime.time/time_ns functions
+#ifndef MICROPY_PY_UTIME_TIME_TIME_NS
+#define MICROPY_PY_UTIME_TIME_TIME_NS (0)
 #endif
 
 // Period of values returned by utime.ticks_ms(), ticks_us(), ticks_cpu()

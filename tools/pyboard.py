@@ -68,6 +68,7 @@ Or:
 """
 
 import ast
+import errno
 import os
 import struct
 import sys
@@ -245,7 +246,7 @@ class ProcessPtyToTerminal:
         pty = m.group()
         # rtscts, dsrdtr params are to workaround pyserial bug:
         # http://stackoverflow.com/questions/34831131/pyserial-does-not-play-well-with-virtual-port
-        self.ser = serial.Serial(pty, interCharTimeout=1, rtscts=True, dsrdtr=True)
+        self.serial = serial.Serial(pty, interCharTimeout=1, rtscts=True, dsrdtr=True)
 
     def close(self):
         import signal
@@ -253,13 +254,13 @@ class ProcessPtyToTerminal:
         os.killpg(os.getpgid(self.subp.pid), signal.SIGTERM)
 
     def read(self, size=1):
-        return self.ser.read(size)
+        return self.serial.read(size)
 
     def write(self, data):
-        return self.ser.write(data)
+        return self.serial.write(data)
 
     def inWaiting(self):
-        return self.ser.inWaiting()
+        return self.serial.inWaiting()
 
 
 class Pyboard:
@@ -277,6 +278,7 @@ class Pyboard:
             self.serial = TelnetToSerial(device, user, password, read_timeout=10)
         else:
             import serial
+            import serial.tools.list_ports
 
             # Set options, and exclusive if pyserial supports it
             serial_kwargs = {"baudrate": baudrate, "interCharTimeout": 1}

@@ -26,8 +26,8 @@ FROZEN_MANIFEST ?= variants/manifest.py
 PROG ?= micropython
 
 # qstr definitions (must come before including py.mk)
-QSTR_DEFS = ../unix/qstrdefsport.h
-QSTR_GLOBAL_DEPENDENCIES = $(VARIANT_DIR)/mpconfigvariant.h
+QSTR_DEFS += ../unix/qstrdefsport.h
+QSTR_GLOBAL_DEPENDENCIES += $(VARIANT_DIR)/mpconfigvariant.h
 
 # include py core make definitions
 include $(TOP)/py/py.mk
@@ -57,7 +57,6 @@ SRC_C = \
 	ports/unix/main.c \
 	ports/unix/input.c \
 	ports/unix/modmachine.c \
-	ports/unix/modtime.c \
 	ports/unix/gccollect.c \
 	windows_mphal.c \
 	realpath.c \
